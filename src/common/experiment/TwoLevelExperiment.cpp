@@ -1,7 +1,6 @@
 #include "experiment/TwoLevelExperiment.hpp"
 
 TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
-	SelectionStrategy * strategy = new TournamentSelection(0.5);
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
