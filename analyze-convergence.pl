@@ -6,7 +6,14 @@ use strict;
 my @filenames;
 my @convergenceGenerations;
 
-for (0..$#ARGV) {$filenames[$_] = $ARGV[$_]};
+my $dir = $ARGV[0];
+my $optimum = $ARGV[1];
+
+opendir(DIR, $dir) or die "Could not open results directory $dir";
+
+while ($_ = readdir(DIR)) {
+	push @filenames, "$dir/$_" if (/^run-\d+\.txt$/);
+}
 
 foreach (@filenames) {
 	my $populationSize = 0;
@@ -14,7 +21,7 @@ foreach (@filenames) {
 	my @lines;
 	my @members;
 
-	open(my $fh, "<", $_) or die "Could not open results file $_!";
+	open(my $fh, "<", $_) or die "Could not open results file $_";
 
 	while(<$fh>) {
 		chomp;
@@ -29,7 +36,7 @@ foreach (@filenames) {
 			if (@members) {
 				my $optimal = 0;
 				foreach my $fitness (@members) {
-					$optimal++ if ($fitness == 32);
+					$optimal++ if ($fitness == $optimum);
 				}
 				if ($optimal/$populationSize >= 0.5) {
 					push @convergenceGenerations, $generation;
