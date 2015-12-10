@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 rm -rf experiments-to-run
 
