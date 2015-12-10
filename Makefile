@@ -33,5 +33,5 @@ experiments:
 	./compile-scripts/setup-experiments.sh
 
 clean:
-	find obj -name *.o | xargs rm -f
+	rm -rf obj/*
 	rm -rf experiments

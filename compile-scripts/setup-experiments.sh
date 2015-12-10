@@ -9,6 +9,8 @@ categories=$(ls src/experiments)
 for cat in $categories
 do
 	mkdir experiments-to-run/$cat
+	rm -rf obj/$cat
+	mkdir obj/$cat
 	srcdir=src/experiments/$cat
 	experiments=$(ls $srcdir)
 	experiments=$(echo $experiments | sed 's/\.cpp//g')
