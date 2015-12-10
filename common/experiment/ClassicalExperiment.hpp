@@ -1,4 +1,5 @@
 #include "./HierExperiment.hpp"
+#pragma once
 
 class ClassicalExperiment : HierExperiment {
 	private:
@@ -6,5 +7,5 @@ class ClassicalExperiment : HierExperiment {
 	protected:
 
 	public:
-	ClassicalExperiment(FitnessFunction * objective, FitnessFunction * promise, GenerationModel * model);
+	ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model);
 };

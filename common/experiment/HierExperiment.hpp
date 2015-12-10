@@ -1,4 +1,5 @@
 #include <libHierGA/HierGA.hpp>
+#pragma once
 
 class HierExperiment {
 	private:
@@ -7,7 +8,7 @@ class HierExperiment {
 	HierarchicalGenePool * topLevelPool;
 
 	public:
-	virtual HierExperiment(FitnessFunction * objective, FitnessFunction * promise, GenerationModel * model)=0;
+	virtual HierExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model)=0;
 
 	void run();
 };
