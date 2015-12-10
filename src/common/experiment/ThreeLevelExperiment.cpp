@@ -22,7 +22,7 @@ ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToString
 			bottomNodes[k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 		}
 
-		templateIndividual = new Individual(bottomNodes, 4, crossover, mutation, promise, promiseTS);
+		templateIndividual = new Individual(bottomNodes, 4, crossover, mutation, objective, objectiveTS);
 		midNodes[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 	}
 
