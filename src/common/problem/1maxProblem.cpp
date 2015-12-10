@@ -18,9 +18,12 @@ OneMaxProblem::OneMaxProblem(GenerationModel * model, int hierarchyDepth) {
 	switch(hierarchyDepth) {
 		case 1:
 			experiment = new ClassicalExperiment(objective, objectiveTS, promise, promiseTS, model);
+			break;
 		case 2:
 			experiment = new TwoLevelExperiment(objective, objectiveTS, promise, promiseTS, model);
+			break;
 		case 3:
 			experiment = new ThreeLevelExperiment(objective, objectiveTS, promise, promiseTS, model);
+			break;
 	}
 }
