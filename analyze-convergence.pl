@@ -56,3 +56,32 @@ foreach (@filenames) {
 		}
 	}
 }
+
+my $mean = 0;
+my $slowest = 0;
+my $sum = 0;
+my $fastest = 100;
+my $runCount = keys %convergenceGenerations;
+
+foreach my $run (keys %convergenceGenerations) {
+	my $gen = $convergenceGenerations{$run};
+	$sum += $gen;
+	$slowest = $gen if $gen > $slowest;
+	$fastest = $gen if $gen < $fastest;
+}
+
+$mean = $sum/$runCount;
+
+open(my $fh, '>', "$dir/results.txt");
+
+print $fh "Mean convergence time: $mean generations\n";
+print $fh "Fastest convergence time: $fastest generations\n";
+print $fh "Slowest convergence time: $slowest generations\n";
+print $fh "================================================\n";
+print $fh "Convergence generations by run:\n";
+
+foreach my $run (sort keys %convergenceGenerations) {
+	printf $fh "%-8s: %s\n", $run, $convergenceGenerations{$run};
+}
+
+close $fh;
