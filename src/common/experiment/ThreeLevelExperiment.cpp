@@ -1,6 +1,6 @@
-#include "./TwoLevelExperiment.hpp"
+#include "experiment/ThreeLevelExperiment.hpp"
 
-TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
+ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
 	SelectionStrategy * strategy = new TournamentSelection(0.5);
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
@@ -11,11 +11,11 @@ TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, 
 	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*2);
 	for (int i = 0; i < 2; i++) libraries[i] = baseGenes;
 
-
 	GenePool ** midNodes = (GenePool**)malloc(sizeof(GenePool*)*4);
+	Individual * templateIndividual;
 
 	for (int i = 0; i < 4; i++) {
-		Individual * templateIndividual = new Individual(libraries, 2, crossover, mutation, promise, promiseTS);
+		templateIndividual = new Individual(libraries, 2, crossover, mutation, promise, promiseTS);
 		GenePool ** bottomNodes = (GenePool**)malloc(sizeof(GenePool*)*4);
 		for (int k = 0; k < 4; k++) {
 			bottomNodes[k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, model, NULL, new NonPropagator());

@@ -1,4 +1,4 @@
-#include "./HierExperiment.hpp"
+#include "experiment/HierExperiment.hpp"
 #pragma once
 
 class ClassicalExperiment : HierExperiment {

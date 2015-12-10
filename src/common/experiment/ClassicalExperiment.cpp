@@ -1,6 +1,6 @@
-#include "./ClassicalExperiment.hpp"
+#include "experiment/ClassicalExperiment.hpp"
 
-ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
+ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
 	SelectionStrategy * strategy = new TournamentSelection(0.5);
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
