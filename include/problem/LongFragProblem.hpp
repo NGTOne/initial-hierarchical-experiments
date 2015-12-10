@@ -1,7 +1,7 @@
 #include "problem/Problem.hpp"
 #pragma once
 
-class LongFragProblem : Problem {
+class LongFragProblem : public Problem {
 	private:
 
 	protected:

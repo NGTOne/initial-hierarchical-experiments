@@ -1,7 +1,7 @@
 #include "problem/Problem.hpp"
 #pragma once
 
-class OneMaxProblem : Problem {
+class OneMaxProblem : public Problem {
 	private:
 
 	protected:
