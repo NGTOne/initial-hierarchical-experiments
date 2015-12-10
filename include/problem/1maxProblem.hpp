@@ -1,11 +1,11 @@
 #include "problem/Problem.hpp"
 #pragma once
 
-class 1maxProblem : Problem {
+class OneMaxProblem : Problem {
 	private:
 
 	protected:
 
 	public:
-	1maxProblem(GenerationModel * model, int hierarchyDepth);
+	OneMaxProblem(GenerationModel * model, int hierarchyDepth);
 };

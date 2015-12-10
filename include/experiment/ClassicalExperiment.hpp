@@ -1,7 +1,7 @@
 #include "experiment/HierExperiment.hpp"
 #pragma once
 
-class ClassicalExperiment : HierExperiment {
+class ClassicalExperiment : public HierExperiment {
 	private:
 
 	protected:

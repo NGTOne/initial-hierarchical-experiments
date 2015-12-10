@@ -1,4 +1,5 @@
-#include <HierGA/libHierGA.hpp>
+#include <libHierGA/HierGA.hpp>
+#include "experiment/HierExperiment.hpp"
 #pragma once
 
 class Problem {
