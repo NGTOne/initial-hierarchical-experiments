@@ -30,9 +30,8 @@ fitnesses:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/LongFrag/HierLongFragFitness.cpp -o obj/HierLongFragFitness.o
 
 experiments:
-	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/experiments/ES/1max.cpp -o obj/ES/1max.o
-	$(CPPC) $(EXPCPPFLAGS) $(INCLUDE) $(SHAREDLIB) -o a.out obj/*.o obj/ES/1max.o
-#	$(CPPC) $(EXPCPPFLAGS) $(INCLUDE) $(SHAREDLIB) -o obj/* src/experiments/ES/1max.cpp
+	./setup-experiments.sh
 
 clean:
 	find obj -name *.o | xargs rm -f
+	rm -rf experiments
