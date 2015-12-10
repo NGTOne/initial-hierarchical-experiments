@@ -5,6 +5,7 @@ class Problem {
 	private:
 
 	protected:
+	HierExperiment * experiment;
 
 	public:
 	void run();
