@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 my @filenames;
-my @convergenceGenerations;
+my %convergenceGenerations;
 
 my $dir = $ARGV[0];
 my $optimum = $ARGV[1];
@@ -12,7 +12,7 @@ my $optimum = $ARGV[1];
 opendir(DIR, $dir) or die "Could not open results directory $dir";
 
 while ($_ = readdir(DIR)) {
-	push @filenames, "$dir/$_" if (/^run-\d+\.txt$/);
+	push @filenames, "$_" if (/^run-\d+\.txt$/);
 }
 
 foreach (@filenames) {
@@ -21,7 +21,9 @@ foreach (@filenames) {
 	my @lines;
 	my @members;
 
-	open(my $fh, "<", $_) or die "Could not open results file $_";
+	open(my $fh, "<", "$dir/$_") or die "Could not open results file $_";
+	/^run-(\d+)\.txt$/;
+	my $run = $1;
 
 	while(<$fh>) {
 		chomp;
@@ -39,7 +41,7 @@ foreach (@filenames) {
 					$optimal++ if ($fitness == $optimum);
 				}
 				if ($optimal/$populationSize >= 0.5) {
-					push @convergenceGenerations, $generation;
+					$convergenceGenerations{"Run $run"} = $generation;
 					last;
 				}
 			}
