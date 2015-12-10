@@ -30,7 +30,7 @@ fitnesses:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/LongFrag/HierLongFragFitness.cpp -o obj/HierLongFragFitness.o
 
 experiments:
-	./setup-experiments.sh
+	./compile-scripts/setup-experiments.sh
 
 clean:
 	find obj -name *.o | xargs rm -f
