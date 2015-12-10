@@ -20,5 +20,7 @@ do
 		do
 			experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
 		done
+
+		perl analyze-convergence.pl experiment-results/$cat/$exper 30
 	done
 done

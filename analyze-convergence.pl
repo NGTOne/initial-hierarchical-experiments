@@ -16,6 +16,7 @@ while ($_ = readdir(DIR)) {
 }
 
 foreach (@filenames) {
+	my $converged = 0;
 	my $populationSize = 0;
 	my $generation = 0;
 	my @lines;
@@ -38,10 +39,11 @@ foreach (@filenames) {
 			if (@members) {
 				my $optimal = 0;
 				foreach my $fitness (@members) {
-					$optimal++ if ($fitness == $optimum);
+					$optimal++ if ($fitness >= $optimum);
 				}
 				if ($optimal/$populationSize >= 0.5) {
 					$convergenceGenerations{"Run $run"} = $generation;
+					$converged = 1;
 					last;
 				}
 			}
@@ -55,22 +57,29 @@ foreach (@filenames) {
 			push @members, $2;
 		}
 	}
+
+	if (!$converged) {
+		$convergenceGenerations{"Run $run"} = "Failed to converge"
+	}
 }
 
 my $mean = 0;
 my $slowest = 0;
 my $sum = 0;
 my $fastest = 100;
-my $runCount = keys %convergenceGenerations;
+my $runCount = 0;#keys %convergenceGenerations;
 
 foreach my $run (keys %convergenceGenerations) {
 	my $gen = $convergenceGenerations{$run};
-	$sum += $gen;
-	$slowest = $gen if $gen > $slowest;
-	$fastest = $gen if $gen < $fastest;
+	if ($gen ne "Failed to converge") {
+		$runCount++;
+		$sum += $gen;
+		$slowest = $gen if $gen > $slowest;
+		$fastest = $gen if $gen < $fastest;
+	}
 }
 
-$mean = $sum/$runCount;
+$mean = $sum/$runCount if $runCount;
 
 open(my $fh, '>', "$dir/results.txt");
 
