@@ -120,7 +120,16 @@ if ($runCount) {
 	print $fh "Median: $median generations\n";
 	print $fh "Seventy-fifth percentile: $seventyFifth generations\n";
 	print $fh "Interquartile range: ".(my $iqRange = $seventyFifth - $twentyFifth)." generations\n";
-	print $fh "Approx. std. error: ".($iqRange * 1.5)." generations \n";
+
+	#Calculate the variance and standard deviation
+	my $variance=0;
+	$variance += ($_-$mean)**2 foreach (@convergences);
+	$variance = $variance/$runCount;
+	my $stdDev = sqrt($variance);
+	my $stdError = $stdDev/sqrt($runCount);
+	print $fh "Variance: $variance\n";
+	print $fh "Standard deviation: $stdDev\n";
+	print $fh "Standard error: $stdError\n";
 } else {
 	print $fh "All runs failed to converge in 100 generations.\n";
 }
