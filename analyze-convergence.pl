@@ -83,12 +83,6 @@ $mean = $sum/$runCount if $runCount;
 
 open(my $fh, '>', "$dir/results.txt");
 
-print $fh "Mean convergence time: $mean generations\n";
-print $fh "Fastest convergence time: $fastest generations\n";
-print $fh "Slowest convergence time: $slowest generations\n";
-print $fh "================================================\n";
-print $fh "Convergence generations by run:\n";
-
 sub sortRuns {
 	$a =~ /^Run (\d+)$/;
 	my $num1 = $1;
@@ -97,6 +91,30 @@ sub sortRuns {
 
 	$num1 <=> $num2;
 }
+
+print $fh "Mean convergence time: $mean generations\n";
+print $fh "Fastest convergence time: $fastest generations\n";
+print $fh "Slowest convergence time: $slowest generations\n";
+
+my ($median, $twentyFifth, $seventyFifth);
+my @convergences;
+
+foreach my $run (sort sortRuns keys %convergenceGenerations) {
+	push @convergences, $convergenceGenerations{$run};
+}
+
+@convergences = sort {$a <=> $b} @convergences;
+$median = $convergences[$runCount/2];
+$twentyFifth = $convergences[$runCount/4];
+$seventyFifth = $convergences[($runCount/4)*3];
+
+print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
+print $fh "Median: $median generations\n";
+print $fh "Seventy-fifth percentile: $seventyFifth generations\n";
+print $fh "Interquartile range: ".($seventyFifth - $twentyFifth)." generations\n";
+
+print $fh "================================================\n";
+print $fh "Convergence generations by run:\n";
 
 foreach my $run (sort sortRuns keys %convergenceGenerations) {
 	printf $fh "%-8s: %s\n", $run, $convergenceGenerations{$run};
