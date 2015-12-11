@@ -7,5 +7,5 @@ class OneMaxProblem : public Problem {
 	protected:
 
 	public:
-	OneMaxProblem(GenerationModel * model, int hierarchyDepth);
+	OneMaxProblem(GenerationModel * model, int hierarchyDepth, int midLevelPools, int bottomLevelPools, int libraries);
 };

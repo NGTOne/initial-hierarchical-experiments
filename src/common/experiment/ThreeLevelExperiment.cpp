@@ -1,6 +1,6 @@
 #include "experiment/ThreeLevelExperiment.hpp"
 
-ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
+ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int midLevelPools, int bottomLevelPools, int libraryPools) {
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
@@ -9,25 +9,25 @@ ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToString
 	bits[0] = 0;
 	bits[1] = 1;
 	GenePool * baseGenes = new NonHierarchicalGenePool<int>(bits, 2);
-	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*2);
-	for (int i = 0; i < 2; i++) libraries[i] = baseGenes;
+	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*libraryPools);
+	for (int i = 0; i < libraryPools; i++) libraries[i] = baseGenes;
 
-	GenePool ** midNodes = (GenePool**)malloc(sizeof(GenePool*)*4);
+	GenePool ** midNodes = (GenePool**)malloc(sizeof(GenePool*)*midLevelPools);
 	Individual * templateIndividual;
 
 	for (int i = 0; i < 4; i++) {
-		templateIndividual = new Individual(libraries, 2, crossover, mutation, promise, promiseTS);
-		GenePool ** bottomNodes = (GenePool**)malloc(sizeof(GenePool*)*4);
-		for (int k = 0; k < 4; k++) {
-			bottomNodes[k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+		templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
+		GenePool ** bottomNodes = (GenePool**)malloc(sizeof(GenePool*)*bottomLevelPools);
+		for (int k = 0; k < bottomLevelPools; k++) {
+			bottomNodes[k] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 		}
 
-		templateIndividual = new Individual(bottomNodes, 4, crossover, mutation, objective, objectiveTS);
-		midNodes[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+		templateIndividual = new Individual(bottomNodes, bottomLevelPools, crossover, mutation, objective, objectiveTS);
+		midNodes[i] = new HierarchicalGenePool(bottomLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 	}
 
 
-	templateIndividual = new Individual(midNodes, 4, crossover, mutation, objective, objectiveTS);
+	templateIndividual = new Individual(midNodes, midLevelPools, crossover, mutation, objective, objectiveTS);
 
-	topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	topLevelPool = new HierarchicalGenePool(midLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 }

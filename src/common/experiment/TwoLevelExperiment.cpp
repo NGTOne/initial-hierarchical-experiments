@@ -1,6 +1,6 @@
 #include "experiment/TwoLevelExperiment.hpp"
 
-TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
+TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int bottomLevelPools, int libraryPools) {
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
@@ -9,15 +9,15 @@ TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunc
 	bits[0] = 0;
 	bits[1] = 1;
 	GenePool * baseGenes = new NonHierarchicalGenePool<int>(bits, 2);
-	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*8);
-	for (int i = 0; i < 8; i++) libraries[i] = baseGenes;
+	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*libraryPools);
+	for (int i = 0; i < libraryPools; i++) libraries[i] = baseGenes;
 
-	Individual * templateIndividual = new Individual(libraries, 8, crossover, mutation, promise, promiseTS);
+	Individual * templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
 
-	GenePool ** bottomPopNodes = (GenePool**)malloc(sizeof(GenePool*)*4);
-	for (int i = 0; i < 4; i++) bottomPopNodes[i] = new HierarchicalGenePool(16, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	GenePool ** bottomPopNodes = (GenePool**)malloc(sizeof(GenePool*)*bottomLevelPools);
+	for (int i = 0; i < bottomLevelPools; i++) bottomPopNodes[i] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 
-	templateIndividual = new Individual(bottomPopNodes, 4, crossover, mutation, objective, objectiveTS);
+	templateIndividual = new Individual(bottomPopNodes, bottomLevelPools, crossover, mutation, objective, objectiveTS);
 
-	topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	topLevelPool = new HierarchicalGenePool(bottomLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 }
