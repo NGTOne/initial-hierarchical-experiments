@@ -89,7 +89,16 @@ print $fh "Slowest convergence time: $slowest generations\n";
 print $fh "================================================\n";
 print $fh "Convergence generations by run:\n";
 
-foreach my $run (sort keys %convergenceGenerations) {
+sub sortRuns {
+	$a =~ /^Run (\d+)$/;
+	my $num1 = $1;
+	$b =~ /^Run (\d+)$/;
+	my $num2 = $1;
+
+	$num1 <=> $num2;
+}
+
+foreach my $run (sort sortRuns keys %convergenceGenerations) {
 	printf $fh "%-8s: %s\n", $run, $convergenceGenerations{$run};
 }
 
