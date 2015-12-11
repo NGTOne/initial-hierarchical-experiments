@@ -16,6 +16,7 @@ do
 	do
 		mkdir experiment-results/$cat/$exper
 
+		echo "Running $cat/$exper"
 		for i in $(seq 1 $count)
 		do
 			experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
