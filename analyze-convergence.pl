@@ -98,6 +98,9 @@ $experimentName =~ s/^experiment-results\///;
 print $fh "Experiment: $experimentName\n";
 print $fh "================================================\n";
 
+open(my $csv, '>>', "results.csv");
+print $csv "$experimentName,";
+
 if ($runCount) {
 	print $fh "Mean convergence time: $mean generations\n";
 	print $fh "Fastest convergence time: $fastest generations\n";
@@ -130,9 +133,13 @@ if ($runCount) {
 	print $fh "Variance: $variance\n";
 	print $fh "Standard deviation: $stdDev\n";
 	print $fh "Standard error: $stdError\n";
+	print $csv "$mean,$fastest,$slowest,$twentyFifth,$median,$seventyFifth,$iqRange, $variance, $stdDev, $stdError\n";
 } else {
 	print $fh "All runs failed to converge in 100 generations.\n";
+	print $csv "All runs failed to converge\n";
 }
+close $csv;
+
 print $fh "================================================\n";
 print $fh "Convergence generations by run:\n";
 
