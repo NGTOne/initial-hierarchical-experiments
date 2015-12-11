@@ -111,7 +111,8 @@ $seventyFifth = $convergences[($runCount/4)*3];
 print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
 print $fh "Median: $median generations\n";
 print $fh "Seventy-fifth percentile: $seventyFifth generations\n";
-print $fh "Interquartile range: ".($seventyFifth - $twentyFifth)." generations\n";
+print $fh "Interquartile range: ".(my $iqRange = $seventyFifth - $twentyFifth)." generations\n";
+print $fh "Approx. std. error: ".($iqRange * 1.5)."generations \n";
 
 print $fh "================================================\n";
 print $fh "Convergence generations by run:\n";
