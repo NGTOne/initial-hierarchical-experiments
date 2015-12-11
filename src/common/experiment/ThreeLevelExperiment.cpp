@@ -15,7 +15,7 @@ ThreeLevelExperiment::ThreeLevelExperiment(FitnessFunction * objective, ToString
 	GenePool ** midNodes = (GenePool**)malloc(sizeof(GenePool*)*midLevelPools);
 	Individual * templateIndividual;
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < midLevelPools; i++) {
 		templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
 		GenePool ** bottomNodes = (GenePool**)malloc(sizeof(GenePool*)*bottomLevelPools);
 		for (int k = 0; k < bottomLevelPools; k++) {
