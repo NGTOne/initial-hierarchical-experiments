@@ -92,28 +92,38 @@ sub sortRuns {
 	$num1 <=> $num2;
 }
 
-print $fh "Mean convergence time: $mean generations\n";
-print $fh "Fastest convergence time: $fastest generations\n";
-print $fh "Slowest convergence time: $slowest generations\n";
+my $experimentName = $dir;
+$experimentName =~ s/^experiment-results\///;
 
-my ($median, $twentyFifth, $seventyFifth);
-my @convergences;
+print $fh "Experiment: $experimentName\n";
+print $fh "================================================\n";
 
-foreach my $run (sort sortRuns keys %convergenceGenerations) {
-	push @convergences, $convergenceGenerations{$run};
+if ($runCount) {
+	print $fh "Mean convergence time: $mean generations\n";
+	print $fh "Fastest convergence time: $fastest generations\n";
+	print $fh "Slowest convergence time: $slowest generations\n";
+
+	my ($median, $twentyFifth, $seventyFifth);
+	my @convergences;
+
+	foreach my $run (keys %convergenceGenerations) {
+		my $value = $convergenceGenerations{$run};
+		push @convergences, $value if $value ne "Failed to converge";
+	}
+
+	@convergences = sort {$a <=> $b} @convergences;
+	$median = $convergences[$runCount/2];
+	$twentyFifth = $convergences[$runCount/4];
+	$seventyFifth = $convergences[($runCount/4)*3];
+
+	print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
+	print $fh "Median: $median generations\n";
+	print $fh "Seventy-fifth percentile: $seventyFifth generations\n";
+	print $fh "Interquartile range: ".(my $iqRange = $seventyFifth - $twentyFifth)." generations\n";
+	print $fh "Approx. std. error: ".($iqRange * 1.5)." generations \n";
+} else {
+	print $fh "All runs failed to converge in 100 generations.\n";
 }
-
-@convergences = sort {$a <=> $b} @convergences;
-$median = $convergences[$runCount/2];
-$twentyFifth = $convergences[$runCount/4];
-$seventyFifth = $convergences[($runCount/4)*3];
-
-print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
-print $fh "Median: $median generations\n";
-print $fh "Seventy-fifth percentile: $seventyFifth generations\n";
-print $fh "Interquartile range: ".(my $iqRange = $seventyFifth - $twentyFifth)." generations\n";
-print $fh "Approx. std. error: ".($iqRange * 1.5)."generations \n";
-
 print $fh "================================================\n";
 print $fh "Convergence generations by run:\n";
 
