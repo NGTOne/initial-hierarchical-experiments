@@ -3,10 +3,8 @@
 #include "1max/1max.hpp"
 
 void OneMaxProblem::getFunctions(int hierarchyDepth) {
-	FitnessFunction * promise = new OneMaxFitness();
-	ToStringFunction * promiseTS = new OneMaxToString();
-	FitnessFunction * objective;
-	ToStringFunction * objectiveTS;
+	promise = new OneMaxFitness();
+	promiseTS = new OneMaxToString();
 	if (hierarchyDepth > 1) {
 		objective = new HierOneMaxFitness();
 		objectiveTS = new HierOneMaxToString();
