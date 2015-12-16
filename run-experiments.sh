@@ -16,11 +16,14 @@ do
 	do
 		mkdir experiment-results/$cat/$exper
 
-		echo "Running $cat/$exper"
 		for i in $(seq 1 $count)
 		do
+			echo -n "Running $cat/$exper... $i/$count"
+			echo -n R | tr 'R' '\r'
 			experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
 		done
+
+		echo ""
 
 		perl analyze-convergence.pl experiment-results/$cat/$exper 30
 	done
