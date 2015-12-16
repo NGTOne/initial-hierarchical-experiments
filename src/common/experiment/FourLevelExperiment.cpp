@@ -24,7 +24,7 @@ FourLevelExperiment::FourLevelExperiment(FitnessFunction * objective, ToStringFu
 			templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
 
 			for (int c = 0; c < bottomLevelPools; c++) {
-				bottomPools[k] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+				bottomPools[c] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
 			}
 
 			templateIndividual = new Individual(bottomPools, bottomLevelPools, crossover, mutation, objective, objectiveTS);
