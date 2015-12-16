@@ -12,4 +12,5 @@ class LongFragProblem : public Problem {
 	LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries);
 	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
 	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries);
 };

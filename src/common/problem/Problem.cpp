@@ -15,6 +15,9 @@ void Problem::init(GenerationModel * model, int hierarchyDepth, int * levels) {
 		case 4:
 			experiment = new FourLevelExperiment(objective, objectiveTS, promise, promiseTS, model, levels[0], levels[1], levels[2], levels[3]);
 			break;
+		case 5:
+			experiment = new FiveLevelExperiment(objective, objectiveTS, promise, promiseTS, model, levels[0], levels[1], levels[2], levels[3], levels[4]);
+			break;
 	}
 	
 }

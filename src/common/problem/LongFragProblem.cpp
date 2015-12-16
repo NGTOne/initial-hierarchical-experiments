@@ -32,3 +32,8 @@ LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, 
 	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, libraries};
 	init(model, 4, levels);
 }
+
+LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries) {
+	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, fifthLevelNodes, libraries};
+	init(model, 5, levels);
+}

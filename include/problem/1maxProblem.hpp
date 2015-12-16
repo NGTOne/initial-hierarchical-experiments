@@ -12,4 +12,5 @@ class OneMaxProblem : public Problem {
 	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int libraries);
 	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
 	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
+	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries);
 };

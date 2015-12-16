@@ -32,3 +32,8 @@ OneMaxProblem::OneMaxProblem(GenerationModel * model, int secondLevelNodes, int 
 	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, libraries};
 	init(model, 4, levels);
 }
+
+OneMaxProblem::OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries) {
+	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, fifthLevelNodes, libraries};
+	init(model, 5, levels);
+}
