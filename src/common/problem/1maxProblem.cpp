@@ -2,7 +2,7 @@
 #include "experiment/Experiment.hpp"
 #include "1max/1max.hpp"
 
-OneMaxProblem::OneMaxProblem(GenerationModel * model, int hierarchyDepth, int midLevelPools, int bottomLevelPools, int libraries) {
+void OneMaxProblem::getFunctions(int hierarchyDepth) {
 	FitnessFunction * promise = new OneMaxFitness();
 	ToStringFunction * promiseTS = new OneMaxToString();
 	FitnessFunction * objective;
@@ -13,17 +13,5 @@ OneMaxProblem::OneMaxProblem(GenerationModel * model, int hierarchyDepth, int mi
 	} else {
 		objective = promise;
 		objectiveTS = promiseTS;
-	}
-
-	switch(hierarchyDepth) {
-		case 1:
-			experiment = new ClassicalExperiment(objective, objectiveTS, promise, promiseTS, model);
-			break;
-		case 2:
-			experiment = new TwoLevelExperiment(objective, objectiveTS, promise, promiseTS, model, bottomLevelPools, libraries);
-			break;
-		case 3:
-			experiment = new ThreeLevelExperiment(objective, objectiveTS, promise, promiseTS, model, midLevelPools, bottomLevelPools, libraries);
-			break;
 	}
 }

@@ -5,7 +5,7 @@ class LongFragProblem : public Problem {
 	private:
 
 	protected:
+	void getFunctions(int hierarchyDepth);
 
 	public:
-	LongFragProblem(GenerationModel * model, int hierarchyDepth, int midLevelPools, int bottomLevelPools, int libraries);
 };
