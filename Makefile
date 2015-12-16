@@ -17,6 +17,7 @@ experiment:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/experiment/ClassicalExperiment.cpp -o obj/ClassicalExperiment.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/experiment/TwoLevelExperiment.cpp -o obj/TwoLevelExperiment.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/experiment/ThreeLevelExperiment.cpp -o obj/ThreeLevelExperiment.o
+	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/experiment/FourLevelExperiment.cpp -o obj/FourLevelExperiment.o
 
 problem:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/problem/Problem.cpp -o obj/Problem.o
