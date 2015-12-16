@@ -4,6 +4,6 @@ int main(void) {
 	SelectionStrategy * strategy = new TournamentSelection(0.9);
 	GenerationModel * model = new ReplacingGAGeneration(strategy);
 
-	Problem * problem = new LongFragProblem(model, 1, 0, 0, 32);
+	Problem * problem = new LongFragProblem(model, 32);
 	problem->run();
 }
