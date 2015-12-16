@@ -8,8 +8,8 @@ class LongFragProblem : public Problem {
 	void getFunctions(int hierarchyDepth);
 
 	public:
-	LongFragProblem(GenerationModel * model, int libraries) : Problem(model, libraries) {}
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries) : Problem(model, secondLevelNodes, libraries) {}
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries) : Problem(model, secondLevelNodes, thirdLevelNodes, libraries) {}
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries) : Problem(model, secondLevelNodes, thirdLevelNodes, fourthLevelNodes, libraries) {}
+	LongFragProblem(GenerationModel * model, int libraries);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
 };

@@ -16,9 +16,4 @@ class Problem {
 
 	public:
 	void run();
-
-	Problem(GenerationModel * model, int libraries);
-	Problem(GenerationModel * model, int secondLevelNodes, int libraries);
-	Problem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
-	Problem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
 };
