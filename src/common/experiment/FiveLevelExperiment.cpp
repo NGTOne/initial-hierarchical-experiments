@@ -8,7 +8,7 @@ FiveLevelExperiment::FiveLevelExperiment(FitnessFunction * objective, ToStringFu
 	int * bits = (int*)malloc(sizeof(int)*2);
 	bits[0] = 0;
 	bits[1] = 1;
-	GenePool * baseGenes = new NonHierarchicalGenePool<int>(bits, 2);
+	GenePool * baseGenes = new LibraryNode<int>(bits, 2);
 	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*libraryPools);
 	for (int i = 0; i < libraryPools; i++) libraries[i] = baseGenes;
 
