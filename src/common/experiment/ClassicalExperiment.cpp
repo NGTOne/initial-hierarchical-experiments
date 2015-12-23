@@ -8,7 +8,7 @@ ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFu
 	int * bits = (int*)malloc(sizeof(int)*2);
 	bits[0] = 0;
 	bits[1] = 1;
-	GenePool * baseGenes = new NonHierarchicalGenePool<int>(bits, 2);
+	GenePool * baseGenes = new LibraryNode<int>(bits, 2);
 	GenePool ** libraries = (GenePool**)malloc(sizeof(GenePool*)*32);
 	for (int i = 0; i < 32; i++) libraries[i] = baseGenes;
 
