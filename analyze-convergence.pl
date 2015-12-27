@@ -99,7 +99,8 @@ print $fh "Experiment: $experimentName\n";
 print $fh "================================================\n";
 
 open(my $csv, '>>', "results.csv");
-print $csv "$experimentName,";
+$experimentName =~ /(.+)\/(1max|LongFrag)_(?:\d(Coev|Hier))?(.+)/;
+print $csv "$1,$2,".($3 || "N/A").",$4,"; #Information about the experiment
 
 if ($runCount) {
 	print $fh "Successful runs: $runCount\n";
