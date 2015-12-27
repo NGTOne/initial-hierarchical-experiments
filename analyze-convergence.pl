@@ -4,10 +4,22 @@ use warnings;
 use strict;
 
 my @filenames;
+my %times;
 my %convergenceGenerations;
 
 my $dir = $ARGV[0];
-my $optimum = $ARGV[1];
+my $timeFile = $ARGV[1];
+my $optimum = $ARGV[2];
+
+open(my $fh, "<", $timeFile) or die "Could not open experiment output file";
+
+while(<$fh>) {
+	chomp;
+	/^(.+) took (\d+)m (\d+)s$/;
+	$times{$1} = $2*60 + $3;
+}
+
+close $fh;
 
 opendir(DIR, $dir) or die "Could not open results directory $dir";
 
@@ -22,7 +34,7 @@ foreach (@filenames) {
 	my @lines;
 	my @members;
 
-	open(my $fh, "<", "$dir/$_") or die "Could not open results file $_";
+	open($fh, "<", "$dir/$_") or die "Could not open results file $_";
 	/^run-(\d+)\.txt$/;
 	my $run = $1;
 
@@ -81,7 +93,7 @@ foreach my $run (keys %convergenceGenerations) {
 
 $mean = $sum/$runCount if $runCount;
 
-open(my $fh, '>', "$dir/results.txt");
+open($fh, '>', "$dir/results.txt");
 
 sub sortRuns {
 	$a =~ /^Run (\d+)$/;
@@ -99,11 +111,15 @@ print $fh "Experiment: $experimentName\n";
 print $fh "================================================\n";
 
 open(my $csv, '>>', "results.csv");
+print $csv "Evolutionary System, Problem, Hierarchy Type, Structure, Run Time (seconds), Success, Mean, Fastest, Slowest, 25th %tile, Med, 75th %tile, IQR, Variance, StdDev, StdErr\n" if (-z $csv);
 $experimentName =~ /(.+)\/(1max|LongFrag)_(?:\d(Coev|Hier))?(.+)/;
 print $csv "$1,$2,".($3 || "N/A").",$4,"; #Information about the experiment
 
+print $csv $times{$experimentName}.",";
+
 if ($runCount) {
 	print $fh "Successful runs: $runCount\n";
+	print $fh "Run time: $times{$experimentName} seconds\n";
 	print $fh "Mean convergence time: $mean generations\n";
 	print $fh "Fastest convergence time: $fastest generations\n";
 	print $fh "Slowest convergence time: $slowest generations\n";

@@ -2,7 +2,7 @@
 
 rm results.csv results.zip
 
-categories=$(ls experiment-results)
+categories=$(ls experiment-results | grep -v txt)
 
 for cat in $categories
 do
@@ -10,7 +10,7 @@ do
 
 	for exper in $experiments
 	do
-		perl analyze-convergence.pl experiment-results/$cat/$exper 30
+		perl analyze-convergence.pl experiment-results/$cat/$exper experiment-results/output.txt 30
 	done
 done
 

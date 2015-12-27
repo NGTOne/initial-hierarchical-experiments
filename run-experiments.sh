@@ -27,12 +27,14 @@ do
 			then
 				echo -n R | tr 'R' '\r'
 			else
-				echo " Took $(($SECONDS / 60)) m $(($SECONDS % 60))s"
+				runTime=$SECONDS
+				echo " Took $(($runTime / 60))m $(($runTime % 60))s"
+				echo "$cat/$exper took $(($runTime / 60))m $(($runTime % 60))s" >> experiment-results/output.txt
 			fi
 			experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
 		done
 
-		perl analyze-convergence.pl experiment-results/$cat/$exper 30
+		perl analyze-convergence.pl experiment-results/$cat/$exper experiment-results/output.txt 30
 	done
 done
 
