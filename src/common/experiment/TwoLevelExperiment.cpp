@@ -1,6 +1,6 @@
 #include "experiment/TwoLevelExperiment.hpp"
 
-TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int bottomLevelPools, int libraryPools) {
+TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int bottomLevelPools, int libraryPools, bool coevolutionary) {
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
@@ -15,9 +15,9 @@ TwoLevelExperiment::TwoLevelExperiment(FitnessFunction * objective, ToStringFunc
 	Individual * templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
 
 	GenePool ** bottomPopNodes = (GenePool**)malloc(sizeof(GenePool*)*bottomLevelPools);
-	for (int i = 0; i < bottomLevelPools; i++) bottomPopNodes[i] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	for (int i = 0; i < bottomLevelPools; i++) bottomPopNodes[i] = getNode(libraryPools, false);
 
 	templateIndividual = new Individual(bottomPopNodes, bottomLevelPools, crossover, mutation, objective, objectiveTS);
 
-	topLevelPool = new HierarchicalGenePool(bottomLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	topLevelPool = getNode(bottomLevelPools, coevolutionary);
 }

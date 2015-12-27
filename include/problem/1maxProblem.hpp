@@ -9,8 +9,8 @@ class OneMaxProblem : public Problem {
 
 	public:
 	OneMaxProblem(GenerationModel * model, int libraries);
-	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int libraries);
-	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
-	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
-	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries);
+	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int libraries, bool coevolutionary);
+	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries, bool coevolutionary);
+	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries, bool coevolutionary);
+	OneMaxProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries, bool coevolutionary);
 };

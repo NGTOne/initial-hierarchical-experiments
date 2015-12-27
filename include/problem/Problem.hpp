@@ -11,7 +11,12 @@ class Problem {
 	FitnessFunction * objective;
 	ToStringFunction * promiseTS;
 	ToStringFunction * objectiveTS;
-	void init(GenerationModel * model, int hierarchyDepth, int * levels);
+	void init(
+		GenerationModel * model,
+		int hierarchyDepth,
+		int * levels,
+		bool coevolutionary
+	);
 	virtual void getFunctions(int hierarchyDepth)=0;
 
 	public:

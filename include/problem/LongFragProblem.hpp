@@ -9,8 +9,8 @@ class LongFragProblem : public Problem {
 
 	public:
 	LongFragProblem(GenerationModel * model, int libraries);
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries);
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries);
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries);
-	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries, bool coevolutionary);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries, bool coevolutionary);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries, bool coevolutionary);
+	LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries, bool coevolutionary);
 };

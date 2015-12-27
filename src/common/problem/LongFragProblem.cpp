@@ -15,25 +15,25 @@ void LongFragProblem::getFunctions(int hierarchyDepth) {
 }
 
 LongFragProblem::LongFragProblem(GenerationModel * model, int libraries) {
-	init(model, 1, NULL);
+	init(model, 1, NULL, false);
 }
 
-LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries) {
+LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int libraries, bool coevolutionary) {
 	int levels[] = {secondLevelNodes, libraries};
-	init(model, 2, levels);
+	init(model, 2, levels, coevolutionary);
 }
 
-LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries) {
+LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int libraries, bool coevolutionary) {
 	int levels[] = {secondLevelNodes, thirdLevelNodes, libraries};
-	init(model, 3, levels);
+	init(model, 3, levels, coevolutionary);
 }
 
-LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries) {
+LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int libraries, bool coevolutionary) {
 	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, libraries};
-	init(model, 4, levels);
+	init(model, 4, levels, coevolutionary);
 }
 
-LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries) {
+LongFragProblem::LongFragProblem(GenerationModel * model, int secondLevelNodes, int thirdLevelNodes, int fourthLevelNodes, int fifthLevelNodes, int libraries, bool coevolutionary) {
 	int levels[] = {secondLevelNodes, thirdLevelNodes, fourthLevelNodes, fifthLevelNodes, libraries};
-	init(model, 5, levels);
+	init(model, 5, levels, coevolutionary);
 }

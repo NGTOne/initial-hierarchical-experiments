@@ -7,5 +7,5 @@ class FiveLevelExperiment : public HierExperiment {
 	protected:
 
 	public:
-	FiveLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int secondLevelPools, int thirdLevelPools, int fourthLevelPools, int bottomLevelPools, int libraries);
+	FiveLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int secondLevelPools, int thirdLevelPools, int fourthLevelPools, int bottomLevelPools, int libraries, bool coevolutionary);
 };

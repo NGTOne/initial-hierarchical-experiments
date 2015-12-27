@@ -7,5 +7,5 @@ class ThreeLevelExperiment : public HierExperiment {
 	protected:
 
 	public:
-	ThreeLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int midLevelPools, int bottomLevelPools, int libraries);
+	ThreeLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int midLevelPools, int bottomLevelPools, int libraries, bool coevolutionary);
 };

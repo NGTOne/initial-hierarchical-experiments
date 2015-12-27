@@ -1,6 +1,6 @@
 #include "experiment/FiveLevelExperiment.hpp"
 
-FiveLevelExperiment::FiveLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int secondLevelPools, int thirdLevelPools, int fourthLevelPools, int bottomLevelPools, int libraryPools) {
+FiveLevelExperiment::FiveLevelExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model, int secondLevelPools, int thirdLevelPools, int fourthLevelPools, int bottomLevelPools, int libraryPools, bool coevolutionary) {
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
@@ -27,25 +27,27 @@ FiveLevelExperiment::FiveLevelExperiment(FitnessFunction * objective, ToStringFu
 				templateIndividual = new Individual(libraries, libraryPools, crossover, mutation, promise, promiseTS);
 
 				for (int a = 0; a < bottomLevelPools; a++) {
-					bottomPools[a] = new HierarchicalGenePool(libraryPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+					// If we don't set the bottom level
+					// pools to evolve, nothing will happen!
+					bottomPools[a] = getNode(libraryPools, false);
 				}
 
 				templateIndividual = new Individual(bottomPools, bottomLevelPools, crossover, mutation, objective, objectiveTS);
 
-				levelFourPools[c] = new HierarchicalGenePool(bottomLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+				levelFourPools[c] = getNode(bottomLevelPools, coevolutionary);
 			}
 
 			templateIndividual = new Individual(levelFourPools, fourthLevelPools, crossover, mutation, objective, objectiveTS);
 
-			levelThreePools[k] = new HierarchicalGenePool(fourthLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+			levelThreePools[k] = getNode(fourthLevelPools, coevolutionary);
 		}
 
 		templateIndividual = new Individual(levelThreePools, thirdLevelPools, crossover, mutation, objective, objectiveTS);
 
-		levelTwoPools[i] = new HierarchicalGenePool(thirdLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+		levelTwoPools[i] = getNode(thirdLevelPools, coevolutionary);
 	}
 
 	templateIndividual = new Individual(levelTwoPools, secondLevelPools, crossover, mutation, objective, objectiveTS);
 
-	topLevelPool = new HierarchicalGenePool(secondLevelPools*2, templateIndividual, 100, 1, model, NULL, new NonPropagator());
+	topLevelPool = getNode(secondLevelPools, coevolutionary);
 }
