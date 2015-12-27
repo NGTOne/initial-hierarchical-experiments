@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm results.csv
+rm results.csv results.zip
 
 categories=$(ls experiment-results)
 
@@ -13,3 +13,5 @@ do
 		perl analyze-convergence.pl experiment-results/$cat/$exper 30
 	done
 done
+
+zip -rv results.zip experiment-results results.csv

@@ -4,6 +4,8 @@
 count=$1
 categories=$(ls experiments-to-run)
 
+rm results.csv
+rm results.zip
 rm -rf experiment-results
 mkdir experiment-results
 
@@ -33,3 +35,5 @@ do
 		perl analyze-convergence.pl experiment-results/$cat/$exper 30
 	done
 done
+
+zip -rv results.zip experiment-results results.csv
