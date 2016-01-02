@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm results.csv results.zip
+rm results.csv results.zip summary.csv
 
 categories=$(ls experiment-results | grep -v txt)
 
@@ -14,4 +14,5 @@ do
 	done
 done
 
-zip -rv results.zip experiment-results results.csv
+cat $(find . -name summary.csv) > summary.csv
+zip -rv results.zip experiment-results results.csv summary.csv

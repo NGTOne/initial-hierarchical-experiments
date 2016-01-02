@@ -27,12 +27,28 @@ while ($_ = readdir(DIR)) {
 	push @filenames, "$_" if (/^run-\d+\.txt$/);
 }
 
-foreach (@filenames) {
+sub sortFiles {
+	$a =~ /run-(\d+)\.txt/;	my $num1 = $1;
+	$b =~ /run-(\d+)\.txt/; my $num2 = $1;
+	$num1 <=> $num2;
+}
+
+open(my $csv, '>', "$dir/summary.csv");
+print $csv "Evolutionary System,Problem,Hierarchy Type,Structure,Run,Generations to Convergence,Highest Achieved Fitness, Individuals Meeting Convergence Criteria\n" if (-z $csv);
+my $experimentName = $dir;
+$experimentName =~ s/^experiment-results\///;
+my $experimentRegex =  '(.+)\/(1max|LongFrag)_(?:\d(Coev|Hier))?(.+)';
+
+print "Analyzing $experimentName\n";
+
+foreach (sort sortFiles @filenames) {
 	my $converged = 0;
 	my $populationSize = 0;
 	my $generation = 0;
 	my @lines;
 	my @members;
+	my $bestFitness = 0;
+	my $convergedMembers = 0;
 
 	open($fh, "<", "$dir/$_") or die "Could not open results file $_";
 	/^run-(\d+)\.txt$/;
@@ -52,9 +68,11 @@ foreach (@filenames) {
 				my $optimal = 0;
 				foreach my $fitness (@members) {
 					$optimal++ if ($fitness >= $optimum);
+					$bestFitness = $fitness if ($fitness >= $bestFitness);
 				}
 				if ($optimal/$populationSize >= 0.5) {
 					$convergenceGenerations{"Run $run"} = $generation;
+					$convergedMembers = $optimal;
 					$converged = 1;
 					last;
 				}
@@ -73,7 +91,13 @@ foreach (@filenames) {
 	if (!$converged) {
 		$convergenceGenerations{"Run $run"} = "Failed to converge"
 	}
+
+	$experimentName =~ /$experimentRegex/;
+	print $csv "$1,$2,".($3 || "N/A").",$4,"; #Info about the experiment
+	print $csv "$run,".($converged ? $convergenceGenerations{"Run $run"} : "Failed").",$bestFitness,$convergedMembers\n";
 }
+
+close ($csv);
 
 my $mean = 0;
 my $slowest = 0;
@@ -104,15 +128,12 @@ sub sortRuns {
 	$num1 <=> $num2;
 }
 
-my $experimentName = $dir;
-$experimentName =~ s/^experiment-results\///;
-
 print $fh "Experiment: $experimentName\n";
 print $fh "================================================\n";
 
-open(my $csv, '>>', "results.csv");
+open($csv, '>>', "results.csv");
 print $csv "Evolutionary System, Problem, Hierarchy Type, Structure, Run Time (seconds), Success, Mean, Fastest, Slowest, 25th %tile, Med, 75th %tile, IQR, Variance, StdDev, StdErr\n" if (-z $csv);
-$experimentName =~ /(.+)\/(1max|LongFrag)_(?:\d(Coev|Hier))?(.+)/;
+$experimentName =~ /$experimentRegex/;
 print $csv "$1,$2,".($3 || "N/A").",$4,"; #Information about the experiment
 
 print $csv $times{$experimentName}.",";
