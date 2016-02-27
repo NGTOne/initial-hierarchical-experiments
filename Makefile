@@ -24,6 +24,7 @@ problem:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/problem/Problem.cpp -o obj/Problem.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/problem/1maxProblem.cpp -o obj/1maxProblem.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/problem/LongFragProblem.cpp -o obj/LongFragProblem.o
+	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/problem/AverageFragProblem.cpp -o obj/AverageFragProblem.o
 
 fitnesses:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/1max/1maxFitness.cpp -o obj/1maxFitness.o
