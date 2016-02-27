@@ -30,6 +30,8 @@ fitnesses:
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/1max/Hier1maxFitness.cpp -o obj/Hier1maxFitness.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/LongFrag/LongFragFitness.cpp -o obj/LongFragFitness.o
 	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/LongFrag/HierLongFragFitness.cpp -o obj/HierLongFragFitness.o
+	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/AverageFrag/AverageFragFitness.cpp -o obj/AverageFragFitness.o
+	$(CPPC) $(OBJCPPFLAGS) $(INCLUDE) src/common/AverageFrag/HierAverageFragFitness.cpp -o obj/HierAverageFragFitness.o
 
 experiments:
 	./compile-scripts/setup-experiments.sh
