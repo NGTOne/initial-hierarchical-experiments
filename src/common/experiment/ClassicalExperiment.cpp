@@ -9,10 +9,10 @@ ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFu
 	delete(templateIndividual);
 }
 
-ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS) {
+ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, int initialTemp) {
 	Individual * templateIndividual = getTemplateIndividual(objective, objectiveTS);
 
-	topLevelPool = new SimulatedAnnealer(templateIndividual, true, 6400, 1, new LinearTempSchedule(3000, 6400), NULL, NULL);
+	topLevelPool = new SimulatedAnnealer(templateIndividual, true, 6400, 1, new ExponentialTempSchedule(initialTemp, 0.8, 10, 6400), NULL, NULL);
 
 	delete(templateIndividual);
 }

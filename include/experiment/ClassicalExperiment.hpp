@@ -11,5 +11,5 @@ class ClassicalExperiment : public HierExperiment {
 	ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model);
 
 	// For setting up experiments with annealers
-	ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS);
+	ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, int initialTemp);
 };
