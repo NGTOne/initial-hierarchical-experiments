@@ -1,10 +1,26 @@
 #include "experiment/ClassicalExperiment.hpp"
 
 ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS, FitnessFunction * promise, ToStringFunction * promiseTS, GenerationModel * model) {
+	Individual * templateIndividual = getTemplateIndividual(objective, objectiveTS);
+	FitnessPropagator * propagator = new NonPropagator();
+
+	topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, model, NULL, propagator);
+
+	delete(templateIndividual);
+}
+
+ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS) {
+	Individual * templateIndividual = getTemplateIndividual(objective, objectiveTS);
+
+	topLevelPool = new SimulatedAnnealer(templateIndividual, true, 100, 1, new LinearTempSchedule(3000, 100), NULL, NULL);
+
+	delete(templateIndividual);
+}
+
+Individual * ClassicalExperiment::getTemplateIndividual(FitnessFunction * objective, ToStringFunction * objectiveTS) {
 	CrossoverOperation * crossover = new NPointCrossover(2);
 	MutationOperation * mutation = new UniformMutation(0.1);
 
-	// Set up the library nodes
 	int * bits = (int*)malloc(sizeof(int)*2);
 	bits[0] = 0;
 	bits[1] = 1;
@@ -14,9 +30,5 @@ ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFu
 
 	Individual * templateIndividual = new Individual(libraries, 32, crossover, mutation, objective, objectiveTS);
 
-	FitnessPropagator * propagator = new NonPropagator();
-
-	topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, model, NULL, propagator);
-
-	delete(templateIndividual);
+	return templateIndividual;
 }
