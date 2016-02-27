@@ -2,7 +2,13 @@
 
 # Run each experiment this many times
 count=$1
-categories=$(ls experiments-to-run)
+shift
+if [[ "$#" -eq 0 ]]
+then
+	categories=$(ls experiments-to-run)
+else
+	categories=("$@")
+fi
 
 rm -rf experiment-results
 mkdir experiment-results
