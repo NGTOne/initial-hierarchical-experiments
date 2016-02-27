@@ -7,7 +7,11 @@ if [[ "$#" -eq 0 ]]
 then
 	categories=$(ls experiments-to-run)
 else
-	categories=("$@")
+	categories=""
+	for cat in $@
+	do
+		categories="$categories $cat"
+	done
 fi
 
 rm -rf experiment-results

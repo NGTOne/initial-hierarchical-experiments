@@ -37,7 +37,7 @@ open(my $csv, '>', "$dir/summary.csv");
 print $csv "Evolutionary System,Problem,Hierarchy Type,Structure,Run,Generations to Convergence,Highest Achieved Fitness, Individuals Meeting Convergence Criteria\n" if (-z $csv);
 my $experimentName = $dir;
 $experimentName =~ s/^experiment-results\///;
-my $experimentRegex =  '(.+)\/(1max|LongFrag)_(?:\d(Coev|Hier))?(.+)';
+my $experimentRegex =  '(.+)\/(1max|LongFrag|AverageFrag)_(?:\d(Coev|Hier))?(.+)';
 
 print "Analyzing $experimentName\n";
 
