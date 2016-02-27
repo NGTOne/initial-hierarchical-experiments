@@ -4,7 +4,7 @@
 int main(void) {
 	FitnessFunction * objective = new LongFragFitness();
 	ToStringFunction * objectiveTS = new LongFragToString();
-	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS);
+	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS, 3000);
 
 	experiment->run();
 }

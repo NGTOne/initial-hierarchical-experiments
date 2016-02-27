@@ -4,7 +4,7 @@
 int main(void) {
 	FitnessFunction * objective = new AverageFragFitness();
 	ToStringFunction * objectiveTS = new AverageFragToString();
-	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS);
+	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS, 3000);
 
 	experiment->run();
 }
