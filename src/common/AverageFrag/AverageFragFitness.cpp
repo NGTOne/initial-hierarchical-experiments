@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include <iostream>
 #include <libHierGA/HierGA.hpp>
 #include "AverageFrag/AverageFragFitness.hpp"
 
@@ -44,12 +45,11 @@ PropertiesList * AverageFragFitness::checkFitness(GenePool ** pools, int * index
                 currentPathLength = 0;
         }
 
-	numPaths = currentPath-1;
 	for (int i = 0; i < currentPath; i++) {
 		overallPathLength += pathLengths[i];
 	}
 
-	averageLength = (float)overallPathLength/(float)numPaths;
+	averageLength = (float)overallPathLength/(float)currentPath;
 	returnFitness = floor(averageLength);
 
 	returnProperties->setFitness(returnFitness);

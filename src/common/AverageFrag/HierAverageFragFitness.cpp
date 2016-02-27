@@ -117,7 +117,7 @@ PropertiesList * HierAverageFragFitness::checkFitness(GenePool ** pools, int * i
 		totalPathLength += newPathLengths[i];
 	}
 
-	averagePathLength = (float)totalPathLength/(float)(numConsolidatedPaths-1);
+	averagePathLength = (float)totalPathLength/(float)(numConsolidatedPaths);
 	returnFitness = floor(averagePathLength);
 	returnProperties->setFitness(returnFitness);
 	
