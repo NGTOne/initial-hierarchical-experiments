@@ -12,7 +12,7 @@ ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFu
 ClassicalExperiment::ClassicalExperiment(FitnessFunction * objective, ToStringFunction * objectiveTS) {
 	Individual * templateIndividual = getTemplateIndividual(objective, objectiveTS);
 
-	topLevelPool = new SimulatedAnnealer(templateIndividual, true, 100, 1, new LinearTempSchedule(3000, 100), NULL, NULL);
+	topLevelPool = new SimulatedAnnealer(templateIndividual, true, 6400, 1, new LinearTempSchedule(3000, 6400), NULL, NULL);
 
 	delete(templateIndividual);
 }
