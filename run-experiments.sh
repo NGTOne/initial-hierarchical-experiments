@@ -48,7 +48,14 @@ do
 				echo " Took $(($runTime / 60))m $(($runTime % 60))s"
 				echo "$cat/$exper took $(($runTime / 60))m $(($runTime % 60))s" >> experiment-results/output.txt
 			fi
-			experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
+
+			if [[ $silent ]]
+			then
+				experiments-to-run/$cat/$exper silent
+			else
+				experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
+
+			fi
 		done
 	done
 done
