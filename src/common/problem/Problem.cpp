@@ -21,7 +21,7 @@ void Problem::init(GenerationModel * model, int hierarchyDepth, int * levels, bo
 	}
 }
 
-void Problem::run() {
-	experiment->run();
+void Problem::run(bool silent) {
+	experiment->run(silent);
 }
 

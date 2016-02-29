@@ -3,6 +3,15 @@
 # Run each experiment this many times
 count=$1
 shift
+
+if [[ "$1" == "--silent" ]]
+then
+	silent=1
+	shift
+else
+	silent=0
+fi
+
 if [[ "$#" -eq 0 ]]
 then
 	categories=$(ls experiments-to-run)

@@ -13,5 +13,5 @@ class HierExperiment {
 	HierarchicalGenePool * topLevelPool;
 
 	public:
-	void run();
+	void run(bool silent);
 };

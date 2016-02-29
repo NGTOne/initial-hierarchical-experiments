@@ -1,5 +1,5 @@
 #include "experiment/HierExperiment.hpp"
 
-void HierExperiment::run() {
-	topLevelPool->run(true);
+void HierExperiment::run(bool silent) {
+	topLevelPool->run(silent);
 }

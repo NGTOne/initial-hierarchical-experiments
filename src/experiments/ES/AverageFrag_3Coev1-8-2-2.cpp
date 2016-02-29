@@ -1,6 +1,6 @@
 #include "problem/AverageFragProblem.hpp"
 
-int main(void) {
+int main(int argc, char* argv) {
 	SelectionStrategy * strategy = new TournamentSelection(0.9);
 	GenerationModel * model = new ESGeneration(strategy);
 

@@ -20,5 +20,5 @@ class Problem {
 	virtual void getFunctions(int hierarchyDepth)=0;
 
 	public:
-	void run();
+	void run(bool silent);
 };
