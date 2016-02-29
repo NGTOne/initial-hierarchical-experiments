@@ -2,7 +2,7 @@
 #include "experiment/Experiment.hpp"
 #pragma once
 
-#define runSilent (strcmp(argv[1], "silent")) ? false : true
+#define runSilent (strcmp(argv[1], "silent")) ? true : false
 
 class Problem {
 	private:

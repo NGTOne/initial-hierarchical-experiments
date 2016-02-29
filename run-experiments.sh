@@ -23,17 +23,23 @@ else
 	done
 fi
 
-rm -rf experiment-results
-mkdir experiment-results
+if [[ $silent -ne 1 ]]
+then
+	rm -rf experiment-results
+	mkdir exeriment-results
+fi
 
 for cat in $categories
 do
-	mkdir experiment-results/$cat
+	if [[ $silent -ne 1 ]]; then mkdir experiment-results/$cat; fi
 	experiments=$(ls experiments-to-run/$cat)
 
 	for exper in $experiments
 	do
-		mkdir experiment-results/$cat/$exper
+		if [[ $silent -ne 1 ]]
+		then
+			mkdir experiment-results/$cat/$exper
+		fi
 
 		SECONDS=0
 
@@ -53,11 +59,13 @@ do
 			then
 				experiments-to-run/$cat/$exper silent
 			else
-				experiments-to-run/$cat/$exper > experiment-results/$cat/$exper/run-$i.txt
-
+				experiments-to-run/$cat/$exper loud > experiment-results/$cat/$exper/run-$i.txt
 			fi
 		done
 	done
 done
 
-./analyze-experiments.sh
+if [[ $silent -ne 1 ]]
+then
+	./analyze-experiments.sh
+fi
