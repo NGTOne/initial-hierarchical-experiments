@@ -26,7 +26,7 @@ fi
 if [[ $silent -ne 1 ]]
 then
 	rm -rf experiment-results
-	mkdir exeriment-results
+	mkdir experiment-results
 fi
 
 for cat in $categories
