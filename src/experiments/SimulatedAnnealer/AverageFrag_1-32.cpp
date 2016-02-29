@@ -6,5 +6,5 @@ int main(int argc, char* argv[]) {
 	ToStringFunction * objectiveTS = new AverageFragToString();
 	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS, 3000);
 
-	experiment->run(false);
+	experiment->run(true);
 }
