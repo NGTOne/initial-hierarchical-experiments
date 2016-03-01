@@ -70,7 +70,7 @@ foreach (sort sortFiles @filenames) {
 					$optimal++ if ($fitness >= $optimum);
 					$bestFitness = $fitness if ($fitness >= $bestFitness);
 				}
-				if ($optimal/$populationSize >= 0.5) {
+				if ($optimal > 0 && !$converged) {
 					$convergenceGenerations{"Run $run"} = $generation;
 					$convergedMembers = $optimal;
 					$converged = 1;
@@ -83,7 +83,7 @@ foreach (sort sortFiles @filenames) {
 			undef(@members);
 		}
 
-		if (/^Member (\d+): .+ Fitness: (\d+)$/) {
+		if (/^Member (\d+): .+ Fitness: (\d+)$/ && $converged == 0) {
 			push @members, $2;
 		}
 	}

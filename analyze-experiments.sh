@@ -10,7 +10,7 @@ do
 
 	for exper in $experiments
 	do
-		perl analyze-convergence.pl experiment-results/$cat/$exper experiment-results/output.txt 30
+		perl analyze-convergence.pl experiment-results/$cat/$exper experiment-results/output.txt 32
 	done
 done
 
