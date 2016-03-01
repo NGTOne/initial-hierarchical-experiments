@@ -157,19 +157,19 @@ if ($runCount) {
 	if ($runCount >= 50) {
 		$median = $convergences[49];
 	} else {
-		$median = 'infinity';
+		$median = 'Inf';
 	}
 
 	if ($runCount >= 25) {
 		$twentyFifth = $convergences[24];
 	} else {
-		$twentyFifth = 'infinity';
+		$twentyFifth = 'Inf';
 	}
 
 	if ($runCount >= 75) {
 		$seventyFifth = $convergences[74];
 	} else {
-		$seventyFifth = 'infinity';
+		$seventyFifth = 'Inf';
 	}
 
 	print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
