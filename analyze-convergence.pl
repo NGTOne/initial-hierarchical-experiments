@@ -156,7 +156,7 @@ if ($runCount) {
 	@convergences = sort {$a <=> $b} @convergences;
 	if ($runCount >= 50) {
 		$median = $convergences[49];
-	else {
+	} else {
 		$median = 'infinity';
 	}
 
