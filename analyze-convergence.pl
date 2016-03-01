@@ -154,9 +154,23 @@ if ($runCount) {
 	}
 
 	@convergences = sort {$a <=> $b} @convergences;
-	$median = $convergences[$runCount/2];
-	$twentyFifth = $convergences[$runCount/4];
-	$seventyFifth = $convergences[($runCount/4)*3];
+	if ($runCount >= 50) {
+		$median = $convergences[49];
+	else {
+		$median = 'infinity';
+	}
+
+	if ($runCount >= 25) {
+		$twentyFifth = $convergences[24];
+	} else {
+		$twentyFifth = 'infinity';
+	}
+
+	if ($runCount >= 75) {
+		$seventyFifth = $convergences[74];
+	} else {
+		$seventyFifth = 'infinity';
+	}
 
 	print $fh "Twenty-fifth percentile: $twentyFifth generations\n";
 	print $fh "Median: $median generations\n";
