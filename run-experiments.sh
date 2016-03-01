@@ -26,7 +26,7 @@ fi
 if [[ $silent -ne 1 ]]
 then
 	rm -rf experiment-results
-	mkdir exeriment-results
+	mkdir experiment-results
 fi
 
 for cat in $categories
@@ -55,7 +55,7 @@ do
 				echo "$cat/$exper took $(($runTime / 60))m $(($runTime % 60))s" >> experiment-results/output.txt
 			fi
 
-			if [[ $silent ]]
+			if [[ $silent -eq 1 ]]
 			then
 				experiments-to-run/$cat/$exper silent
 			else

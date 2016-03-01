@@ -6,5 +6,5 @@ int main(int argc, char* argv[]) {
 	ToStringFunction * objectiveTS = new OneMaxToString();
 	ClassicalExperiment * experiment = new ClassicalExperiment(objective, objectiveTS, 0);
 
-	experiment->run(false);
+	experiment->run(true);
 }
