@@ -34,7 +34,7 @@ sub sortFiles {
 }
 
 open(my $csv, '>', "$dir/summary.csv");
-print $csv "Evolutionary System,Problem,Hierarchy Type,Structure,Run,Generations to Convergence,Highest Achieved Fitness, Individuals Meeting Convergence Criteria\n" if (-z $csv);
+print $csv "Evolutionary System,Problem,Hierarchy Type,Structure,Run,Generations to Convergence,Highest Achieved Fitness,First Occurence Generation of Highest Fitness,Individuals Meeting Convergence Criteria\n" if (-z $csv);
 my $experimentName = $dir;
 $experimentName =~ s/^experiment-results\///;
 my $experimentRegex =  '(.+)\/(1max|LongFrag|AverageFrag)_(?:\d(Coev|Hier))?(.+)';
@@ -48,6 +48,7 @@ foreach (sort sortFiles @filenames) {
 	my @lines;
 	my @members;
 	my $bestFitness = 0;
+	my $bestGeneration = 0;
 	my $convergedMembers = 0;
 
 	open($fh, "<", "$dir/$_") or die "Could not open results file $_";
@@ -68,7 +69,10 @@ foreach (sort sortFiles @filenames) {
 				my $optimal = 0;
 				foreach my $fitness (@members) {
 					$optimal++ if ($fitness >= $optimum);
-					$bestFitness = $fitness if ($fitness >= $bestFitness);
+					if ($fitness > $bestFitness) {
+						$bestFitness = $fitness;
+						$bestGeneration = $generation;
+					}
 				}
 				if ($optimal > 0 && !$converged) {
 					$convergenceGenerations{"Run $run"} = $generation;
@@ -94,7 +98,7 @@ foreach (sort sortFiles @filenames) {
 
 	$experimentName =~ /$experimentRegex/;
 	print $csv "$1,$2,".($3 || "N/A").",$4,"; #Info about the experiment
-	print $csv "$run,".($converged ? $convergenceGenerations{"Run $run"} : "Failed").",$bestFitness,$convergedMembers\n";
+	print $csv "$run,".($converged ? $convergenceGenerations{"Run $run"} : "Failed").",$bestFitness,$bestGeneration,$convergedMembers\n";
 }
 
 close ($csv);
