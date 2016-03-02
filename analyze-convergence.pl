@@ -41,6 +41,9 @@ my $experimentRegex =  '(.+)\/(1max|LongFrag|AverageFrag)_(?:\d(Coev|Hier))?(.+)
 
 print "Analyzing $experimentName\n";
 
+open(my $gens, '>>', "generations.csv");
+print $gens "Evolutionary System,Problem,Hierarchy Type,Structure,Run,Generation,Highest Fitness\n" if (-z $gens);
+
 foreach (sort sortFiles @filenames) {
 	my $converged = 0;
 	my $populationSize = 0;
@@ -50,6 +53,7 @@ foreach (sort sortFiles @filenames) {
 	my $bestFitness = 0;
 	my $bestGeneration = 0;
 	my $convergedMembers = 0;
+	my @bestMembers;
 
 	open($fh, "<", "$dir/$_") or die "Could not open results file $_";
 	/^run-(\d+)\.txt$/;
@@ -67,13 +71,16 @@ foreach (sort sortFiles @filenames) {
 		if (/^Before generation (\d+):$/) {
 			if (@members) {
 				my $optimal = 0;
+				my $bestMember = 0;
 				foreach my $fitness (@members) {
 					$optimal++ if ($fitness >= $optimum);
 					if ($fitness > $bestFitness) {
 						$bestFitness = $fitness;
 						$bestGeneration = $generation;
 					}
+					$bestMember = $fitness if ($fitness > $bestMember);
 				}
+				push @bestMembers, $bestMember;
 				if ($optimal > 0 && !$converged) {
 					$convergenceGenerations{"Run $run"} = $generation;
 					$convergedMembers = $optimal;
@@ -99,8 +106,13 @@ foreach (sort sortFiles @filenames) {
 	$experimentName =~ /$experimentRegex/;
 	print $csv "$1,$2,".($3 || "N/A").",$4,"; #Info about the experiment
 	print $csv "$run,".($converged ? $convergenceGenerations{"Run $run"} : "Failed").",$bestFitness,$bestGeneration,$convergedMembers\n";
+
+	for (my $i=0; $i < $bestGeneration; $i++) {
+		print $gens "$1,$2,".($3 || "N/A").",$4,$run,$i,$bestMembers[$i]\n";
+	}
 }
 
+close ($gens);
 close ($csv);
 
 my $mean = 0;

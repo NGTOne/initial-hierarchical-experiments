@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm results.csv results.zip summary.csv
+rm results.csv results.zip summary.csv generations.csv
 
 categories=$(ls experiment-results | grep -v txt)
 
