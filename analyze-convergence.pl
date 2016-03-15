@@ -48,7 +48,11 @@ if (-z $gens) {
 	for (my $i = 0; $i < 32; $i++) {
 		print $gens "# With Fitness $i,";
 	}
-	print $gens "# With Fitness 32\n";
+	print $gens "# With Fitness 32,";
+	for (my $i = 0; $i < 32; $i++) {
+		print $gens "# With HD $i,";
+	}
+	print $gens "# With HD 32\n";
 }
 
 foreach (sort sortFiles @filenames) {
@@ -61,6 +65,8 @@ foreach (sort sortFiles @filenames) {
 	my $bestGeneration = 0;
 	my $convergedMembers = 0;
 	my @allFitnesses;
+	my @allDistances;
+	my @hammingDistances = (0) x 33;
 
 	open($fh, "<", "$dir/$_") or die "Could not open results file $_";
 	/^run-(\d+)\.txt$/;
@@ -88,7 +94,9 @@ foreach (sort sortFiles @filenames) {
 					}
 					$fitnesses[$fitness] += 1;
 				}
+				my @temp = @hammingDistances;
 				push @allFitnesses, \@fitnesses;
+				push @allDistances, \@temp;
 				if ($optimal > 0 && !$converged) {
 					$convergenceGenerations{"Run $run"} = $generation;
 					$convergedMembers = $optimal;
@@ -100,10 +108,13 @@ foreach (sort sortFiles @filenames) {
 			# Reset for the next generation
 			$generation = $1;
 			undef(@members);
+			@hammingDistances = (0) x 33;
 		}
 
-		if (/^Member (\d+): .+ Fitness: (\d+)$/ && $converged == 0) {
-			push @members, $2;
+		if (/^Member (\d+): ([01]+) Fitness: (\d+)$/ && $converged == 0) {
+			push @members, $3;
+			my $distance = ($2 =~ tr/0//);
+			$hammingDistances[$distance]++;
 		}
 	}
 
@@ -120,7 +131,11 @@ foreach (sort sortFiles @filenames) {
 		for (my $k=0; $k < 32; $k++) {
 			print $gens "$allFitnesses[$i][$k],";
 		}
-		print $gens "$allFitnesses[$i][32]\n";
+		print $gens "$allFitnesses[$i][32],";
+		for (my $k=0; $k < 32; $k++) {
+			print $gens "$allDistances[$i][$k],";
+		}
+		print $gens "$allDistances[$i][32]\n";
 	}
 }
 
