@@ -106,7 +106,7 @@ foreach (sort sortFiles @filenames) {
 			}
 
 			# Reset for the next generation
-			$generation = $1;
+			$generation = $1-1;
 			undef(@members);
 			@hammingDistances = (0) x 33;
 		}
@@ -126,7 +126,7 @@ foreach (sort sortFiles @filenames) {
 	print $csv "$1,$2,".($3 || "N/A").",$4,"; #Info about the experiment
 	print $csv "$run,".($converged ? $convergenceGenerations{"Run $run"} : "Failed").",$bestFitness,$bestGeneration,$convergedMembers\n";
 
-	for (my $i=0; $i < $bestGeneration; $i++) {
+	for (my $i=0; $i <= $bestGeneration; $i++) {
 		print $gens "$1,$2,".($3 || "N/A").",$4,$run,$i,";
 		for (my $k=0; $k < 32; $k++) {
 			print $gens "$allFitnesses[$i][$k],";
