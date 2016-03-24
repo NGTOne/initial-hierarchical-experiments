@@ -15,4 +15,4 @@ do
 done
 
 cat $(find . -name summary.csv) | awk '!a[$0]++' > summary.csv
-zip -rv results.zip experiment-results results.csv summary.csv
+zip -rv results.zip experiment-results results.csv summary.csv generations.csv
